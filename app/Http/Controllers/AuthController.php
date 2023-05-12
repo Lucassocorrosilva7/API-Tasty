@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -12,9 +15,28 @@ class AuthController extends Controller
     {
 
         $data = $request->validated();
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+
+        return [
+            'token' => $user->createToken('token')->plainTextToken,
+            'user' => $user
+        ];
     }
-    public function login(Request $request)
+
+    public function login(LoginRequest $request)
     {
+        $data = $request->validated();
+
+        if (!Auth::attempt($data)) {
+            return response([
+                'errors' => ['E-mail ou senha incorretos']
+            ], 422);
+        };
     }
     public function logout(Request $request)
     {
