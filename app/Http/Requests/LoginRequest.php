@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password as PasswordRules;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,28 +22,18 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => [
-                'required',
-                'confirmed',
-                PasswordRules::min(8)
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
-            ]
+            'email' => ['required', 'email', 'exists:users,email'],
+            'password' => ['required']
         ];
     }
-
 
     public function messages()
     {
         return [
-            "name" => 'Nome é obrigatório',
             "email" => "E-mail é obrigatório",
             "email.email" => "E-mail não é válido",
-            "email.unique" => "E-mail já cadastrado",
-            "password" => "Senha deve ter no mínimo 8 caracteres, letras, números e símbolos",
+            "email.exists" => "E-mail não cadastrado",
+            "password" => "Senha é obrigatória",
         ];
     }
 }
