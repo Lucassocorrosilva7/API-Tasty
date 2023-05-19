@@ -22,15 +22,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::apiResource('/categories', CategoryController::class);
+    Route::apiResource('/products', ProductController::class);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/orders', OrderController::class);
 });
 
 
-Route::post('/products', [ProductController::class, 'store']);
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
-Route::apiResource('/categories', CategoryController::class);
+
 
 
 Route::post('/register', [AuthController::class, 'register']);
