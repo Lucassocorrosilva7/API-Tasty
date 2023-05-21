@@ -61,7 +61,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
-        $product->available = 1;
+        $product->available = 0;
         $product->save();
         return [
             "product" => $product
@@ -74,6 +74,5 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response()->json(['message' => 'Produto deletado com Sucesso']);
     }
 }
