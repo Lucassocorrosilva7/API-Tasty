@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -42,7 +43,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return response()->json(['message' => 'Product created successfully']);
+        return response()->json(['message' => 'Product Adicionado com sucesso!']);
     }
 
     /**
@@ -74,5 +75,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        return response()->json(['message' => 'Produto exclúido com sucesso!']);
     }
 }
