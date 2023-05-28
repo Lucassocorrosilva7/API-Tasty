@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\AppServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://api-tasty-production.up.railway.app'),
+    'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -183,7 +182,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'AWS' => Aws\Laravel\AwsFacade::class
+        // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
 ];
